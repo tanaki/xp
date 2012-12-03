@@ -1,0 +1,3 @@
+
+var XP = window.XP || {};
+
