@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--
-Experiment xx
--->
+    <!--
+    Experiment xx
+    -->
 	<head>
         <title>Experimentation xx</title>
         <meta charset="utf-8">
@@ -12,12 +12,22 @@ Experiment xx
                 margin:0;
                 padding:0;
             }
+            canvas {
+                width:400px;
+                height:400px;
+                background:#000;
+            }
         </style>
     </head>
     <body>
         <canvas id="main">Pas de canvas, pas de chocolat.</canvas>
 
-		<script type="text/javascript" src="js/lib/RequestAnimationFrame.js"></script>
-		<script type="text/javascript" src="js/xp.js"></script>
+		<script type="text/javascript" src="js/lib/Stats.js"></script>
+        <script type="text/javascript" src="js/lib/RequestAnimationFrame.js"></script>
+
+        <script type="text/javascript" src="js/Particle.js"></script>
+        <script type="text/javascript" src="js/Snowflake.js"></script>
+
+		<script type="text/javascript" src="js/XP.js"></script>
     </body>
 </html>
