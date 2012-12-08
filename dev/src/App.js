@@ -34,17 +34,18 @@ SKI.init = function() {
 	this.initFire();
 
 	// Socks
-	this.initSocks();
+	// this.initSocks();
 
 	// Window + Snow
 	this.initWindow();
 
 	// TODO
 	// Tree (+ Bowls)
-	// Cerf ?
 
-	// setInterval(SKI.update, 100);
 	SKI.update();
+
+	// Video
+	SKI.initVideo();
 };
 
 SKI.update = function(){
