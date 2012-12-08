@@ -40,7 +40,7 @@ SKI.init = function() {
 	this.initWindow();
 
 	// TODO
-	// Tree (+ Bowls)
+	// Tree (+ Bowls) + guirlande
 
 	SKI.update();
 
@@ -67,4 +67,12 @@ SKI.update = function(){
 	SKI.Stats.end();
 
 	window.requestAnimFrame(SKI.update);
+};
+
+SKI.displayMessage = function(){
+	document.getElementById("message").className = "visible";
+};
+
+SKI.hideMessage = function(){
+	document.getElementById("message").className = "";
 };

@@ -40,7 +40,7 @@ SKI.init = function() {
 	this.initWindow();
 
 	// TODO
-	// Tree (+ Bowls)
+	// Tree (+ Bowls) + guirlande
 
 	SKI.update();
 
@@ -69,6 +69,13 @@ SKI.update = function(){
 	window.requestAnimFrame(SKI.update);
 };
 
+SKI.displayMessage = function(){
+	document.getElementById("message").className = "visible";
+};
+
+SKI.hideMessage = function(){
+	document.getElementById("message").className = "";
+};
 
 SKI.initBackground = function(){
 	this.BG = SKI.R.rect(0,0,200,150);
@@ -180,6 +187,18 @@ function Sock(R) {
 
 	this.init(R);
 }
+SKI.Song = {
+
+	swapSongs : function() {
+		
+		var 
+			jBells = document.getElementById("jinglebells"),
+			jDeath = document.getElementById("jingledeath");
+
+		jBells.pause();
+		jDeath.play();
+	}
+};
 
 SKI.initVideo = function() {
 
@@ -212,23 +231,37 @@ function hasGetUserMedia() {
 }
 
 function success(stream) {
+
+	SKI.displayMessage();
+
 	SKI.video = document.createElement("video");
 	SKI.video.autoplay = true;
 	SKI.video.src = window.URL.createObjectURL(stream);
 	
-	setInterval(function(){		
+	var itv = setInterval(function(){		
 
 		if ( SKI.canvas && SKI.ctx && SKI.video ) {
 			SKI.ctx.drawImage(SKI.video, 0, 0, 200, 150);
 
 			faces = detectFaces();
-			if ( faces && faces[0] ) {
+			console.log( faces && faces[0] ? faces[0].width : "=" );
+			if ( faces && faces[0] && faces[0].width > 80 ) {
 
-				var img = faces[0];
-				SKI.ctxUser.drawImage(SKI.canvas,img.x,img.y + 5,img.width,img.height / 2,0,0,50,25);
+				stream.stop();
+				SKI.hideMessage();
+				SKI.Song.swapSongs();
+				clearInterval(itv);
+				clearVideo();
 			}
 		}
-	}, 1000);
+	}, 200);
+}
+
+function clearVideo() {
+	SKI.video.pause();
+	SKI.video = null;
+	SKI.canvas = null;
+	SKI.ctx = null;
 }
 
 function onFailSoHard(e) {
@@ -239,14 +272,6 @@ function detectFaces() {
 	return ccv.detect_objects({canvas : (ccv.pre(SKI.canvas)), cascade: cascade, interval: 2, min_neighbors: 1});
 }
 
-/*
-<div id="jingle-bell" style="position:absolute; left:-5000px;">
-			<iframe width="420" height="315" src="http://www.youtube.com/embed/O2MFducncsg?autoplay=1" frameborder="0" allowfullscreen></iframe>
-		</div>
-		<div id="jingle-death" style="position:absolute; left:-5000px;">
-			<iframe width="420" height="315" src="http://www.youtube.com/embed/MntZ2oPDPnM?autoplay=1#t=1m01s" frameborder="0" allowfullscreen></iframe>
-		</div>
-		*/
 SKI.initWindow = function(){
 	SKI.SnowWindow = new SnowWindow(SKI.R);
 };
