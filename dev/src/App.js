@@ -19,10 +19,11 @@ var SKI = window.SKI || {
 
 SKI.init = function() {
 
-	SKI.Stats = new Stats();
-	SKI.Stats.domElement.style.position = "absolute";
-	SKI.Stats.domElement.style.top = 0;
-	document.body.appendChild( SKI.Stats.domElement );
+	// Stats... obviously
+	this.Stats = new Stats();
+	this.Stats.domElement.style.position = "absolute";
+	this.Stats.domElement.style.top = 0;
+	document.body.appendChild( this.Stats.domElement );
 
 	this.R = Raphael("raphael", 1024, 650);
 
@@ -33,19 +34,21 @@ SKI.init = function() {
 	// this.initBackground();
 	this.initFire();
 
-	// Socks
-	// this.initSocks();
+	// TODO Finish Socks
+	this.initSocks();
 
 	// Window + Snow
 	this.initWindow();
 
 	// TODO
 	// Tree (+ Bowls) + guirlande
-
-	SKI.update();
+	this.initTree();
 
 	// Video
-	SKI.initVideo();
+	// this.initVideo();
+
+	// And GO !!
+	this.update();
 };
 
 SKI.update = function(){
@@ -70,9 +73,20 @@ SKI.update = function(){
 };
 
 SKI.displayMessage = function(){
-	document.getElementById("message").className = "visible";
+	document.getElementById("message").className = "";
 };
 
 SKI.hideMessage = function(){
-	document.getElementById("message").className = "";
+	document.getElementById("message").className = "hidden";
+};
+
+SKI.goCrazy = function(){
+	SKI.hideMessage();
+	// SKI.Song.swapSongs();
+
+	// TODO
+	// Make the fire explode
+	// Tree fell then is set on fire
+	// socks rotating around the deer with red eyes
+
 };

@@ -19,10 +19,11 @@ var SKI = window.SKI || {
 
 SKI.init = function() {
 
-	SKI.Stats = new Stats();
-	SKI.Stats.domElement.style.position = "absolute";
-	SKI.Stats.domElement.style.top = 0;
-	document.body.appendChild( SKI.Stats.domElement );
+	// Stats... obviously
+	this.Stats = new Stats();
+	this.Stats.domElement.style.position = "absolute";
+	this.Stats.domElement.style.top = 0;
+	document.body.appendChild( this.Stats.domElement );
 
 	this.R = Raphael("raphael", 1024, 650);
 
@@ -33,19 +34,21 @@ SKI.init = function() {
 	// this.initBackground();
 	this.initFire();
 
-	// Socks
-	// this.initSocks();
+	// TODO Finish Socks
+	this.initSocks();
 
 	// Window + Snow
 	this.initWindow();
 
 	// TODO
 	// Tree (+ Bowls) + guirlande
-
-	SKI.update();
+	this.initTree();
 
 	// Video
-	SKI.initVideo();
+	// this.initVideo();
+
+	// And GO !!
+	this.update();
 };
 
 SKI.update = function(){
@@ -70,11 +73,22 @@ SKI.update = function(){
 };
 
 SKI.displayMessage = function(){
-	document.getElementById("message").className = "visible";
+	document.getElementById("message").className = "";
 };
 
 SKI.hideMessage = function(){
-	document.getElementById("message").className = "";
+	document.getElementById("message").className = "hidden";
+};
+
+SKI.goCrazy = function(){
+	SKI.hideMessage();
+	// SKI.Song.swapSongs();
+
+	// TODO
+	// Make the fire explode
+	// Tree fell then is set on fire
+	// socks rotating around the deer with red eyes
+
 };
 
 SKI.initBackground = function(){
@@ -200,6 +214,31 @@ SKI.Song = {
 	}
 };
 
+SKI.initTree = function(){
+
+	SKI.Tree = new Tree(SKI.R);
+
+};
+
+function Tree(R) {
+
+
+	this.init = function(R){
+
+		this.sapin = R.path("M0,0 L40,80 -40,80Z M0,50 L60,160 -60,160Z M0,120 L80,240 -80,240Z");
+		this.sapin.attr({
+			"stroke" : "none",
+			"fill" : "90-#030:10-#060",
+			"transform" : "t950,320"
+		});
+
+
+	};
+
+	this.init(R);
+
+}
+
 SKI.initVideo = function() {
 
 	SKI.canvas = document.createElement("canvas");
@@ -232,8 +271,6 @@ function hasGetUserMedia() {
 
 function success(stream) {
 
-	SKI.displayMessage();
-
 	SKI.video = document.createElement("video");
 	SKI.video.autoplay = true;
 	SKI.video.src = window.URL.createObjectURL(stream);
@@ -244,12 +281,11 @@ function success(stream) {
 			SKI.ctx.drawImage(SKI.video, 0, 0, 200, 150);
 
 			faces = detectFaces();
-			console.log( faces && faces[0] ? faces[0].width : "=" );
+			// console.log( faces && faces[0] ? faces[0].width : "--" );
 			if ( faces && faces[0] && faces[0].width > 80 ) {
 
 				stream.stop();
-				SKI.hideMessage();
-				SKI.Song.swapSongs();
+				SKI.goCrazy();
 				clearInterval(itv);
 				clearVideo();
 			}

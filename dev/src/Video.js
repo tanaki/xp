@@ -31,8 +31,6 @@ function hasGetUserMedia() {
 
 function success(stream) {
 
-	SKI.displayMessage();
-
 	SKI.video = document.createElement("video");
 	SKI.video.autoplay = true;
 	SKI.video.src = window.URL.createObjectURL(stream);
@@ -43,12 +41,11 @@ function success(stream) {
 			SKI.ctx.drawImage(SKI.video, 0, 0, 200, 150);
 
 			faces = detectFaces();
-			console.log( faces && faces[0] ? faces[0].width : "=" );
+			// console.log( faces && faces[0] ? faces[0].width : "--" );
 			if ( faces && faces[0] && faces[0].width > 80 ) {
 
 				stream.stop();
-				SKI.hideMessage();
-				SKI.Song.swapSongs();
+				SKI.goCrazy();
 				clearInterval(itv);
 				clearVideo();
 			}
