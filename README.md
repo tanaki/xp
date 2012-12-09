@@ -1,17 +1,9 @@
-# XP CSS
-
-Nico's xp
+# XP
 
 ## Urls
-Main URL : https://github.com/nicolas/XPCSS   
-Git repository : git://github.com/nicolas/XPCSS.git   
-Issues : https://github.com/nicolas/XPCSS/issues   
+Main URL : https://github.com/nicolas/xp   
+Git repository : git://github.com/nicolas/xp.git   
 
 ## Tools & Libraries
-* JQuery
-
-## Documentation
-_(Coming soon)_
-
-## Release History
-_(Nothing yet)_
+* Raphael
+* CCV.js + face.js
